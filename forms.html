@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>forms</title>
+    <style>
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .form-group label {
+            width: 150px;
+        }
+        .submit-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h3>Restaurant Form</h3>
+    <form action="backend.php">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name">
+        </div>
+        <div class="form-group">
+            <label for="address">Address:</label>
+            <textarea name="" id="address" cols="30" rows="7"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone Number:</label>
+            <input type="text" id="phone">
+        </div>
+        <div class="form-group">
+            <label for="food">Food Items:</label>
+            <input type="checkbox" name="food" id="milk">
+            <label for="milk">Milk</label>
+            <input type="checkbox" name="food" id="bread">
+            <label for="bread">Bread</label>
+            <input type="checkbox" name="food" id="rolls">
+            <label for="rolls">Rolls</label>
+            <input type="checkbox" name="food" id="chocolate">
+            <label for="chocolate">Chocolate</label>
+        </div>
+        <div class="form-group">
+            <label>Payment Mode:</label>
+            <input type="radio" name="PaymentMode" value="card">
+            <label for="card">Card</label>
+            <input type="radio" name="PaymentMode" value="cheque">
+            <label for="cheque">Cheque</label>
+            <input type="radio" name="PaymentMode" value="cash">
+            <label for="cash">Cash</label>
+        </div>
+        <div class="submit-container">
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+</body>
+</html>

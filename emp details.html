@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>employee details</title>
+</head>
+<body>
+    <script>
+        // Create Employee object and initialize values
+        function Employee(name, number, age, salary) {
+            this.EmpName = name;
+            this.EmpNo = number;
+            this.EmpAge = age;
+            this.EmpSal = salary; // Fixed variable name from 'sal' to 'salary'
+
+            this.display = function() {
+                document.write("<p>name: " + this.EmpName + "</p>"); // Added closing tag for <p>
+                document.write("<p>Employee no.: " + this.EmpNo + "</p>"); // Removed .E from this.EmpNo
+                document.write("<p>Age: " + this.EmpAge + "</p>");
+                document.write("<p>Salary: " + this.EmpSal + "</p>");
+            };
+        }
+
+        // Create an instance of Employee
+        var employee1 = new Employee("Guru raj B", 123, 30, 50000);
+        employee1.display(); // Display employee details
+    </script>
+</body>
+</html>
