@@ -1,27 +1,65 @@
-#include "main.h"
-ADC_HandleTypeDef hadc1; // handler for ADC
-void SystemClock_Config(void); 
-static void MX_GPIO_Init(void); 
-static void MX_ADC1_Init(void);
-53
-Microcontrollers & Programming Laboratory
-54
-uint32_t analogValue; // 32- bit variable for ADC value
-int main(void)
-{
-HAL_Init(); 
-SystemClock_Config();
-/* Initialize all configured peripherals */ 
-MX_GPIO_Init();
-MX_ADC1_Init();
-while (1)
-{
-// Start ADC Conversion 
-HAL_ADC_Start(&hadc1);
-// Poll ADC1 Peripherals & TimeOut = 1mSec 
-if(HAL_ADC_PollForConversion(&hadc1, 1)==HAL_OK)
-analogValue = HAL_ADC_GetValue(&hadc1);
-else
-}
-analogValue=0;
-}
+AREA    |.text|, CODE, READONLY
+ENTRY
+
+; Define constants
+MAX_NUM      EQU     100         ; Maximum number to check
+PRIME_COUNT   EQU     0           ; Counter for prime numbers
+
+; Define variables
+PRIMES        SPACE   MAX_NUM     ; Array to store prime numbers
+
+; Start of the program
+START
+
+    ; Initialize registers
+    MOV     R0, #2              ; Start checking from number 2
+    MOV     R1, #0              ; Prime count
+    MOV     R2, #0              ; Index for storing primes
+
+CHECK_NUM
+    CMP     R0, #MAX_NUM        ; Compare with MAX_NUM
+    BGE     END_PROGRAM         ; If R0 >= MAX_NUM, end program
+
+    ; Check if R0 is a prime number
+    MOV     R3, #2              ; Start divisor from 2
+    MOV     R4, R0              ; Copy the number to R4
+    MOV     R5, #1              ; Assume it is a prime number
+
+DIV_LOOP
+    CMP     R3, R4              ; Compare divisor with number
+    BGE     END_DIV_LOOP        ; If divisor >= number, exit loop
+
+    ; Check if divisible
+    MOV     R6, R4
+    UDIV    R6, R6, R3
+    MUL     R6, R6, R3
+    CMP     R6, R4              ; Compare result with number
+    BEQ     NOT_PRIME           ; If equal, not a prime
+
+    ; Increment divisor
+    ADD     R3, R3, #1
+    B       DIV_LOOP            ; Repeat the loop
+
+END_DIV_LOOP
+    CMP     R5, #1              ; Check if still prime
+    BEQ     IS_PRIME            ; If yes, store the prime number
+
+    ; Not a prime number
+    B       NEXT_NUM
+
+IS_PRIME
+    ; Store prime number
+    STR     R0, [R2, R1]       ; Store prime number in array
+    ADD     R1, R1, #4         ; Increment count of primes
+    ADD     R2, R2, #4         ; Move to next index
+
+NEXT_NUM
+    ADD     R0, R0, #1         ; Check next number
+    B       CHECK_NUM          ; Repeat the process
+
+END_PROGRAM
+    ; End of the program
+    B       END_PROGRAM
+
+    ; End of the file
+    END
